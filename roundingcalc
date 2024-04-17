@@ -1,0 +1,84 @@
+import java.util.Scanner;
+import java.lang.Math;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        // Variables initialization
+        double number = 0;
+        int option = 0, customRounding, confirmCustomNumber = 1;
+        double a = 0;
+        double b = 0;
+        double c = 0;
+        long result = 1;
+        char continueLoop;
+
+        // Main calculation loop
+        do {
+            // Display menu
+            System.out.println("\n~~~DECIMAL ROUNDING CALCULATOR~~~");
+            System.out.print("\nOPTIONS:\n1-Round to whole number\n2-Round to 1 decimal place\n3-Round to 2 decimal places\n4-Scientific Rounding\n5-Custom rounding\nWhat option would you like to do: ");
+            option = input.nextInt();
+
+            // Perform selected option
+            if (option == 1) {
+                // Round to whole number
+                System.out.print("\nEnter number you wish to be rounded: ");
+                number = input.nextDouble();
+                System.out.println("Rounded number is:" + Math.round(number));
+            } else if (option == 2) {
+                // Round to 1 decimal place
+                System.out.print("\nEnter number you wish to be rounded: ");
+                number = input.nextDouble();
+                System.out.println("Rounded number is:" + Math.round(number * 10) / 10.0);
+            } else if (option == 3) {
+                // Round to 2 decimal places
+                System.out.print("\nEnter number you wish to be rounded: ");
+                number = input.nextDouble();
+                System.out.println("Rounded number is: " + Math.round(number * 100.0) / 100.0);
+            } else if (option == 4) {
+                // Scientific rounding
+                System.out.println("\n~~~Welcome to the scientific E notation rounding calculator~~");
+                System.out.println("\nEnter the number in the format of a*b^c");
+                System.out.print("a = ");
+                a = input.nextDouble();
+                System.out.print("b = ");
+                b = input.nextDouble();
+                System.out.print("c = ");
+                c = input.nextDouble();
+                System.out.println("The number you have entered is " + a + "*" + b + "E" + c);
+                while (c != 0) {
+                    result *= b;
+                    --c;
+                }
+                System.out.println("\nThe number rounded to a scientific E notation is: " + (a * result));
+            } else if (option == 5) {
+                // Custom rounding
+                do {
+                    System.out.print("\nChoose to how many decimal places you want to round: ");
+                    customRounding = input.nextInt();
+                    if (customRounding < 0) {
+                        System.out.println("Can't use negative numbers!");
+                        confirmCustomNumber = 0;
+                    } else {
+                        confirmCustomNumber = 1;
+                    }
+                } while (confirmCustomNumber == 0);
+                System.out.print("\n\nEnter number you wish to be rounded: ");
+                number = input.nextDouble();
+                System.out.println("Rounded number is: " + Math.round(number * (Math.pow(10.0, customRounding))) / Math.pow(10.0, customRounding));
+            } else {
+                // Invalid option
+                System.out.println("\nInvalid choice, try again");
+            }
+            // Ask if the user wants to continue
+            System.out.print("\nWould you like to perform another calculation? (y/n)");
+            continueLoop = input.next().charAt(0);
+        } while (continueLoop != 'n');
+
+        // Farewell message
+        System.out.println("\nGoodbye!");
+        input.close();
+    }
+}
